@@ -1,36 +1,150 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Personal Portfolio Website
+
+A modern, responsive portfolio website built with Next.js, TypeScript, and Tailwind CSS.
+
+## Features
+
+- 🌓 Dark/Light mode support
+- 📱 Fully responsive design
+- 🎨 Modern UI with smooth animations
+- 📄 Sections: Hero, About, Skills, Projects, Contact
+- 🧭 Smooth scrolling navigation
+- ⚡ Optimized performance
+
+## Tech Stack
+
+- **Framework**: Next.js 15
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **Components**: Radix UI primitives
+- **Font**: Geist Sans & Geist Mono
 
 ## Getting Started
 
-First, run the development server:
-
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Run the development server:
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Personalization
 
-## Learn More
+To make this portfolio your own, you need to update several files:
 
-To learn more about Next.js, take a look at the following resources:
+### 1. Update Layout Information
+**File**: `app/layout.tsx`
+- Update the title with your actual name
+- Customize the description
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. Hero Section
+**File**: `components/HeroSection.tsx`
+- Replace `[Your Name]` with your actual name
+- Update social media links (GitHub, LinkedIn, Email)
+- Customize the hero description if needed
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 3. About Section
+**File**: `components/AboutSection.tsx`
+- Update the about text with your personal story
+- Adjust the statistics (years experience, projects completed, etc.)
+- Replace the placeholder photo section
 
-## Deploy on Vercel
+### 4. Skills Section
+**File**: `components/SkillsSection.tsx`
+- Update skill categories and proficiency levels
+- Add or remove technologies as needed
+- Customize the skill bars
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 5. Projects Section
+**File**: `components/ProjectsSection.tsx`
+- Replace placeholder projects with your actual projects
+- Update project descriptions, technologies used
+- Add real GitHub and live demo URLs
+- Replace placeholder screenshots with actual project images
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 6. Contact Section
+**File**: `components/ContactSection.tsx`
+- Update contact information
+- Replace placeholder email and phone
+- Update social media links
+- Set up actual form submission (currently using placeholder)
+
+### 7. Footer
+**File**: `components/Footer.tsx`
+- Update brand name
+- Replace social media links
+- Update contact information
+- Add current year (done automatically)
+
+## Deployment
+
+### Build for production:
+```bash
+npm run build
+```
+
+### Start production server:
+```bash
+npm start
+```
+
+## Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run code linting
+- `npm run format` - Format code with Biome
+
+## Customization
+
+### Colors
+The theme uses Tailwind CSS with a blue/indigo color scheme. You can customize colors by:
+1. Updating Tailwind config if needed
+2. Modifying the color classes in components
+
+### Fonts
+Using Geist font family from Next.js. You can change this in `app/layout.tsx`.
+
+### Sections
+All sections are modular components. You can:
+- Add new sections by creating new components
+- Remove sections by removing imports from `app/page.tsx`
+- Reorder sections by rearranging the imports in `app/page.tsx`
+
+## Accessibility
+
+- Semantic HTML5 structure
+- ARIA labels where necessary
+- Keyboard navigation support
+- Screen reader friendly
+- Color contrast compliant
+
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+**Note**: This portfolio comes with placeholder content. Remember to personalize all sections with your actual information, projects, and contact details before deploying.
