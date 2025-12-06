@@ -2,6 +2,10 @@
 
 import { useState } from "react";
 import { Code, Palette, Smartphone, Database, Layers, Zap } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 
 const skillsData = [
   {
@@ -77,23 +81,21 @@ export default function SkillsSection() {
 
   const activeSkills = skillsData.find(skill => skill.category === activeCategory);
 
-  const SkillBar = ({ level }: { level: number }) => (
-    <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-      <div
-        className="bg-blue-600 h-3 rounded-full transition-all duration-1000 ease-out"
-        style={{ width: `${level}%` }}
-      />
-    </div>
-  );
+  const handleCategoryChange = (category: string) => {
+    setActiveCategory(category);
+  };
 
   return (
-    <section id="skills" className="py-20 bg-gray-50">
+    <section
+      id="skills"
+      className="py-20 bg-gradient-to-br from-background via-background to-muted/20"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
             Skills & Expertise
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Here's a comprehensive overview of my technical skills and proficiency levels
           </p>
         </div>
@@ -101,95 +103,102 @@ export default function SkillsSection() {
         <div className="grid lg:grid-cols-12 gap-8">
           {/* Category Sidebar */}
           <div className="lg:col-span-4">
-            <div className="bg-white rounded-lg shadow p-6 sticky top-24">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                <Layers className="mr-2 text-blue-600" size={20} />
-                Categories
-              </h3>
-              <div className="space-y-2">
+            <Card className="sticky top-24 shadow-xl">
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Layers className="mr-2 text-purple-600" size={20} />
+                  Categories
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
                 {skillsData.map((category) => (
-                  <button
-                    key={category.category}
-                    onClick={() => setActiveCategory(category.category)}
-                    className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                      activeCategory === category.category
-                        ? "bg-blue-600 text-white"
-                        : "text-gray-700 hover:bg-gray-100"
-                    }`}
-                  >
-                    <category.icon size={20} className={activeCategory === category.category ? "text-white" : "text-gray-500"} />
-                    <span className="font-medium">{category.category}</span>
-                  </button>
+                  <div key={category.category}>
+                    <Button
+                      variant={activeCategory === category.category ? "default" : "ghost"}
+                      onClick={() => handleCategoryChange(category.category)}
+                      className="w-full justify-start hover:bg-purple-500/20"
+                    >
+                      <category.icon size={20} className="mr-3" />
+                      {category.category}
+                    </Button>
+                  </div>
                 ))}
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           </div>
 
           {/* Skills Display */}
           <div className="lg:col-span-8">
             <div className="space-y-8">
               {/* Main Skills Card */}
-              <div className="bg-white rounded-lg shadow p-8">
-                <div className="mb-8">
-                  <div className="flex items-center mb-4">
-                    {activeSkills && <activeSkills.icon className="text-blue-600 mr-3" size={28} />}
-                    <h3 className="text-2xl font-bold text-gray-900">
-                      {activeCategory}
-                    </h3>
-                  </div>
-                  <p className="text-gray-600">
-                    My proficiency level in various technologies within this category
-                  </p>
-                </div>
-
-                <div className="space-y-6">
-                  {activeSkills?.skills.map((skill) => (
-                    <div key={skill.name} className="space-y-3">
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-900 font-semibold text-lg">
-                          {skill.name}
-                        </span>
-                        <span className="text-gray-600 font-medium bg-gray-100 px-3 py-1 rounded-full text-sm">
-                          {skill.level}%
-                        </span>
-                      </div>
-                      <SkillBar level={skill.level} />
+              <Card className="shadow-xl">
+                <div>
+                  <CardHeader>
+                    <div className="flex items-center">
+                      {activeSkills && <activeSkills.icon className="text-purple-600 mr-3" size={28} />}
+                      <CardTitle>{activeCategory}</CardTitle>
                     </div>
-                  ))}
+                    <p className="text-muted-foreground">
+                      My proficiency level in various technologies within this category
+                    </p>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    {activeSkills?.skills.map((skill, index) => (
+                      <div
+                        key={skill.name}
+                        className="space-y-3"
+                      >
+                        <div className="flex justify-between items-center">
+                          <span className="font-semibold text-lg text-foreground">
+                            {skill.name}
+                          </span>
+                          <Badge variant="secondary">
+                            {skill.level}%
+                          </Badge>
+                        </div>
+                        <div className="relative h-3">
+                          <Progress value={skill.level} className="h-3" />
+                        </div>
+                      </div>
+                    ))}
+                  </CardContent>
                 </div>
-              </div>
+              </Card>
 
               {/* Additional Info Cards */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-blue-500 rounded-lg p-6 text-white">
-                  <div className="flex items-center mb-3">
-                    <Zap className="mr-2" size={24} />
-                    <h4 className="text-lg font-semibold">Fast Learner</h4>
+                {[
+                  {
+                    icon: Zap,
+                    title: "Fast Learner",
+                    description: "Continuously learning new technologies and frameworks",
+                  },
+                  {
+                    icon: Database,
+                    title: "Problem Solver",
+                    description: "Strong analytical thinking and debugging skills",
+                  },
+                  {
+                    icon: Code,
+                    title: "Team Player",
+                    description: "Excellent communication and collaboration abilities",
+                  },
+                ].map((info) => (
+                  <div key={info.title}>
+                    <Card className="shadow-xl border-0 hover:shadow-2xl">
+                      <CardContent className="p-6">
+                        <div className="flex items-center mb-3">
+                          <info.icon
+                            className="mr-2 text-purple-600"
+                            size={24}
+                          />
+                          <h4 className="text-lg font-semibold text-foreground">{info.title}</h4>
+                        </div>
+                        <p className="text-muted-foreground">{info.description}</p>
+                      </CardContent>
+                    </Card>
                   </div>
-                  <p className="text-blue-100">
-                    Continuously learning new technologies and frameworks
-                  </p>
-                </div>
-
-                <div className="bg-purple-500 rounded-lg p-6 text-white">
-                  <div className="flex items-center mb-3">
-                    <Database className="mr-2" size={24} />
-                    <h4 className="text-lg font-semibold">Problem Solver</h4>
-                  </div>
-                  <p className="text-purple-100">
-                    Strong analytical thinking and debugging skills
-                  </p>
-                </div>
-
-                <div className="bg-green-500 rounded-lg p-6 text-white">
-                  <div className="flex items-center mb-3">
-                    <Code className="mr-2" size={24} />
-                    <h4 className="text-lg font-semibold">Team Player</h4>
-                  </div>
-                  <p className="text-green-100">
-                    Excellent communication and collaboration abilities
-                  </p>
-                </div>
+                ))}
               </div>
             </div>
           </div>

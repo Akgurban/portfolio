@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Github, ExternalLink, Calendar, Code } from "lucide-react";
 
 const projectsData = [
@@ -16,7 +18,6 @@ const projectsData = [
     ],
     githubUrl: "https://github.com",
     liveUrl: "https://example.com",
-    featured: true,
     date: "2024",
   },
   {
@@ -27,7 +28,6 @@ const projectsData = [
     technologies: ["React", "TypeScript", "Firebase", "Material-UI"],
     githubUrl: "https://github.com",
     liveUrl: "https://example.com",
-    featured: true,
     date: "2024",
   },
   {
@@ -38,7 +38,6 @@ const projectsData = [
     technologies: ["React Native", "Weather API", "Redux", "Charts.js"],
     githubUrl: "https://github.com",
     liveUrl: "https://example.com",
-    featured: false,
     date: "2023",
   },
   {
@@ -49,7 +48,6 @@ const projectsData = [
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
     githubUrl: "https://github.com",
     liveUrl: "https://example.com",
-    featured: false,
     date: "2024",
   },
   {
@@ -60,135 +58,120 @@ const projectsData = [
     technologies: ["Vue.js", "D3.js", "Express.js", "MongoDB"],
     githubUrl: "https://github.com",
     liveUrl: "https://example.com",
-    featured: false,
     date: "2023",
   },
 ];
 
 export default function ProjectsSection() {
-  const featuredProjects = projectsData.filter((project) => project.featured);
-  const otherProjects = projectsData.filter((project) => !project.featured);
 
   const ProjectCard = ({ project }: { project: (typeof projectsData)[0] }) => (
-    <div className="bg-white bg-gray-100 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group">
-      <div className="relative overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600 aspect-video flex items-center justify-center text-white font-semibold">
-        <span>Project Screenshot</span>
-        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
-          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex space-x-4">
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white text-gray-900 p-2 rounded-full hover:bg-gray-100 transition-colors"
-            >
-              <Github size={20} />
-            </a>
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white text-gray-900 p-2 rounded-full hover:bg-gray-100 transition-colors"
-            >
-              <ExternalLink size={20} />
-            </a>
+    <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300 border-primary/20 hover:border-primary/40">
+      <CardHeader className="p-0">
+        <div className="relative overflow-hidden bg-gradient-to-br from-primary to-primary/80 aspect-video flex items-center justify-center text-white font-semibold">
+          <span>Project Screenshot</span>
+          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex space-x-4">
+              <Button size="sm" variant="secondary" asChild>
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2"
+                >
+                  <Github size={20} />
+                </a>
+              </Button>
+              <Button size="sm" variant="secondary" asChild>
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2"
+                >
+                  <ExternalLink size={20} />
+                </a>
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
+      </CardHeader>
 
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-sm text-gray-500 text-gray-600 flex items-center">
-            <Calendar size={14} className="mr-1" />
-            {project.date}
-          </span>
-          <span className="text-xs px-2 py-1 bg-blue-100 bg-blue-100 text-blue-600 text-blue-600 rounded-full">
-            {project.featured ? "Featured" : "Recent"}
-          </span>
+      <CardContent className="p-6">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+          <Calendar size={14} />
+          <span>{project.date}</span>
         </div>
 
-        <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+        <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
           {project.title}
         </h3>
 
-        <p className="text-gray-600 mb-4 line-clamp-3">{project.description}</p>
+        <p className="text-muted-foreground mb-4 line-clamp-3">{project.description}</p>
 
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-wrap gap-2">
           {project.technologies.map((tech) => (
-            <span
-              key={tech}
-              className="text-xs px-3 py-1 bg-gray-100 bg-gray-200 text-gray-700 text-gray-700 rounded-full"
-            >
+            <Badge key={tech} variant="secondary" className="text-xs">
               {tech}
-            </span>
+            </Badge>
           ))}
         </div>
+      </CardContent>
 
-        <div className="flex space-x-3">
-          <Button asChild variant="outline" size="sm">
+      <CardFooter className="pt-0 px-6 pb-6">
+        <div className="flex gap-3 w-full">
+          <Button asChild variant="outline" size="sm" className="flex-1">
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-2"
+              className="flex items-center justify-center gap-2"
             >
               <Github size={16} />
               <span>Code</span>
             </a>
           </Button>
-          <Button asChild size="sm">
+          <Button asChild size="sm" className="flex-1">
             <a
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-2"
+              className="flex items-center justify-center gap-2"
             >
               <ExternalLink size={16} />
               <span>Live Demo</span>
             </a>
           </Button>
         </div>
-      </div>
-    </div>
+      </CardFooter>
+    </Card>
   );
 
   return (
-    <section id="projects" className="py-20 bg-gray-50 bg-gray-100">
+    <section id="projects" className="py-20 bg-gradient-to-br from-background via-background to-muted/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 text-gray-900 mb-4">
-            Featured Projects
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
+            My Projects
           </h2>
-          <p className="text-xl text-gray-600 text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Here are some of my recent projects showcasing my skills and
             expertise
           </p>
         </div>
 
-        {/* Featured Projects */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
-          {featuredProjects.map((project) => (
+        {/* Projects Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {projectsData.map((project) => (
             <ProjectCard key={project.title} project={project} />
           ))}
         </div>
 
-        {/* Other Projects */}
-        <div className="mb-16">
-          <h3 className="text-2xl font-semibold text-gray-900 text-gray-900 mb-8 text-center">
-            Other Notable Projects
-          </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {otherProjects.map((project) => (
-              <ProjectCard key={project.title} project={project} />
-            ))}
-          </div>
-        </div>
-
         {/* Call to Action */}
-        <div className="text-center bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-8 text-white">
+        <div className="text-center bg-gradient-to-r from-primary to-primary/80 rounded-lg p-8 text-primary-foreground">
           <h3 className="text-2xl font-semibold mb-4">
             Have a project in mind?
           </h3>
-          <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
+          <p className="primary-foreground/90 mb-6 max-w-2xl mx-auto">
             I'm always excited to work on new projects. Let's collaborate and
             bring your ideas to life!
           </p>
