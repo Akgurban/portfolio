@@ -32,10 +32,13 @@ This project is automatically deployed to GitHub Pages using GitHub Actions. The
 2. Deploys the static files from `dist/` to GitHub Pages
 3. Runs on every push and can be manually triggered
 
-To enable GitHub Pages:
-1. Go to repository Settings → Pages
-2. Source: GitHub Actions
-3. Push to `main`/`master` branch to trigger deployment
+**Setup Instructions:**
+1. Push the code to your GitHub repository
+2. Go to **Repository Settings** → **Pages**
+3. Under **Source**, select **Deploy from a branch**
+4. Choose **Branch**: `gh-pages` and **Folder**: `/ (root)`
+5. Click **Save**
+6. The workflow will automatically deploy on the next push to `main`/`master`
 
 ## 📧 Contact
 
