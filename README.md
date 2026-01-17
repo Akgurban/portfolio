@@ -24,6 +24,19 @@ npm run dev
 npm run build
 ```
 
+## 🚀 Deployment
+
+This project is automatically deployed to GitHub Pages using GitHub Actions. The workflow:
+
+1. Builds the project on push to `main`/`master` branch
+2. Deploys the static files from `dist/` to GitHub Pages
+3. Runs on every push and can be manually triggered
+
+To enable GitHub Pages:
+1. Go to repository Settings → Pages
+2. Source: GitHub Actions
+3. Push to `main`/`master` branch to trigger deployment
+
 ## 📧 Contact
 
 - **Email**: akgurbanjumayev@gmail.com
